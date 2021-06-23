@@ -1,0 +1,28 @@
+GET http://localhost:3000/users
+
+###
+POST http://localhost:3000/users/
+Content-Type: application/json
+
+{
+    "userName": "Akillalano",
+    "fullName": "Alan",
+    "email":"something@something.com",
+    "password":"$SCad#2x1"
+}
+
+###
+GET http://localhost:3000/users/60d199ee0f44862d5cdfbb72
+
+
+###
+DELETE http://localhost:3000/users/60cac85d092bd22cb8a5551e
+
+
+###
+PATCH http://localhost:3000/users/60d199ee0f44862d5cdfbb72
+Content-Type: application/json
+
+{
+    "userName": "trebsu"
+}
