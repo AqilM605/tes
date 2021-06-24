@@ -1,7 +1,7 @@
-GET http://localhost:3000/users
+GET http://localhost:3000/api/user
 
 ###
-POST http://localhost:3000/users/
+POST http://localhost:3000/api/user/
 Content-Type: application/json
 
 {
@@ -12,15 +12,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/users/60d199ee0f44862d5cdfbb72
+GET http://localhost:3000/api/user/60d2e19a96ad19471c563a3e
 
 
 ###
-DELETE http://localhost:3000/users/60cac85d092bd22cb8a5551e
+DELETE http://localhost:3000/api/user/60d2e16396ad19471c563a3a
 
 
 ###
-PATCH http://localhost:3000/users/60d199ee0f44862d5cdfbb72
+PATCH http://localhost:3000/api/user/60d2e16396ad19471c563a3a
 Content-Type: application/json
 
 {
