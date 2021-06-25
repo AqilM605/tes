@@ -20,12 +20,12 @@ describe("controller testing",()=>{
     try {
 
       await userController.get(req, res);
-      expect(res.status).toHaveBeenCalledWith(200)
+      expect(res.status).toHaveBeenCalledWith([200])
     }
       //negative test
     catch (e) {
       expect(e).toEqual("empty records")
-      expect(res.status).toHaveBeenCalledWith(404)
+      expect(res.status).toHaveBeenCalledWith([404])
 
     }
 
