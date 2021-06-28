@@ -4,11 +4,10 @@ const User = require("../models/user.model");
 exports.get = async (req, res) => {
   try {
     const users = await User.find();
-    if (!users) {
-      res.json({message: "empty records"}
-      )
+    if (users.length==0) {
+     return  res.status(200).json({message: "empty records"})
     }
-    res.json(users);
+    return res.status(200).json(users);
   } catch (err) {
     res.status(500).json({message: err.message});
   }
@@ -53,7 +52,6 @@ exports.create = async (req, res) => {
         res.status(400).json({message: "email already exists"});
       } else {
         const newUser = await user.save();
-
         res.status(201).json(newUser);
       }
     }).catch((error) => {

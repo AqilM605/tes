@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const db = require('./src/app/models');
+const passport=require('./src/app/middleware/auth').passport
 
 var corsOptions = {
   origin: process.env.CORS,
@@ -16,6 +17,19 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+
+
+var session = require("express-session"),
+  bodyParser = require("body-parser"),headerParser = require('header-parser');
+// app.use(express.static("public"));
+// app.use(session({ secret: "cats" }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+app.use(headerParser)
+app.use(passport.initialize());
+
+// app.use(passport.session());
 
 // connect to mongo DB
 db.mongoose
@@ -33,7 +47,7 @@ db.mongoose
 
 // route section
 require('./src/app/routes/users.routes')(app);
-
+require('./src/app/routes/group.routes')(app);
 
 
 module.exports = app

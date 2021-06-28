@@ -1,17 +1,18 @@
 const logging = require('../middleware/logging');
 const handlingErr = require('../middleware/handlingError');
+const router = require('express').Router()
 
 module.exports = (app) => {
 
   const userController = require('../controllers/user.controller')
-  const router = require('express').Router()
+
 
   //middleware to show time, path, and method
   router.all('*', logging.logRequest)
 
 
 // Getting all user
-  router.get("/", userController.get)
+  router.get("/",userController.get)
 
 // Getting one user
   router.get("/:id",userController.getById)
