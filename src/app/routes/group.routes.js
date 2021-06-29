@@ -1,7 +1,7 @@
 const logging = require('../middleware/logging');
 const handlingErr = require('../middleware/handlingError');
 const router = require('express').Router()
-const auth = require('../middleware/auth').auth
+const auth = require('../middleware/auth')
 
 
 module.exports = (app) => {
@@ -14,10 +14,10 @@ module.exports = (app) => {
 
 
 // Getting all groups
-  router.get("/",auth, groupController.get)
+  router.get("/",logging.logRequest,handlingErr.checkIfEmptyBody,auth.auth_jwt, groupController.get)
 
 // Getting one group
-  router.get("/:id", groupController.getById)
+  router.get("/:id",logging.logRequest,handlingErr.checkIfEmptyBody, groupController.getById)
 
 
 // Registering group

@@ -1,10 +1,10 @@
 const logging = require('../middleware/logging');
 const handlingErr = require('../middleware/handlingError');
 const router = require('express').Router()
-
+const userController = require('../controllers/user.controller')
 module.exports = (app) => {
 
-  const userController = require('../controllers/user.controller')
+
 
 
   //middleware to show time, path, and method

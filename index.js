@@ -20,15 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-var session = require("express-session"),
-  bodyParser = require("body-parser"),headerParser = require('header-parser');
-// app.use(express.static("public"));
-// app.use(session({ secret: "cats" }));
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-app.use(headerParser)
-app.use(passport.initialize());
-
 // app.use(passport.session());
 
 // connect to mongo DB
@@ -48,6 +39,7 @@ db.mongoose
 // route section
 require('./src/app/routes/users.routes')(app);
 require('./src/app/routes/group.routes')(app);
+require('./src/app/routes/auth.routes')(app);
 
 
 module.exports = app

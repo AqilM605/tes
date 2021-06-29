@@ -25,58 +25,68 @@ describe('/api/user/', () => {
       const response = await request.post('/api/user/').send(user)
 
       expect(response.status).toEqual(201)
-      expect(response.body).toMatchObject(expect.objectContaining(user))
+      expect(response.body.userName).toEqual(user.userName)
+      // expect(response.body).toMatchObject(expect.objectContaining(user))
 
       _id = response.body._id
 
     });
-    describe('PUT', () => {
-      it('should change UserName to Alan', async () => {
+  });
 
-        const user = {
-          "userName": "Alan",
-        }
-        const response = await request.patch("/api/user/" + _id).send(user);
+  describe('PATCH', () => {
+    it('should change UserName to Alan', async () => {
 
-        expect(response.status).toEqual(200)
-        expect(response.body.userName).toEqual("Alan")
+      const user = {
+        "userName": "Alan",
+      }
+      const response = await request.patch("/api/user/" + _id).send(user);
 
-        _id = response.body._id
-      });
+      expect(response.status).toEqual(200)
+      expect(response.body.userName).toEqual("Alan")
 
-      it('should fail due to unknown id ', async () => {
-        const user = {
-          "userNames": "Akillalano",
-        }
-        const response = await request.patch("/api/user/60d44e393c8bcf1e4cd250ef")
-        expect(response.status).toEqual(404)
-        expect(response.body).toEqual({message: "Cannot update user with id= 60d44e393c8bcf1e4cd250ef. Failed to find user with that id"})
-      });
+      _id = response.body._id
+    });
+
+    it('should fail due to unknown id ', async () => {
+      const user = {
+        "userNames": "Akillalano",
+      }
+      const response = await request.patch("/api/user/60d44e393c8bcf1e4cd250ef").send(user)
+      expect(response.status).toEqual(404)
+      expect(response.body).toEqual({message: "Cannot update user with id= 60d44e393c8bcf1e4cd250ef. Failed to find user with that id"})
+    });
+  })
+  describe('GET', () => {
+
+    it('should return data by id', async () => {
+      const response = await request.get("/api/user/" + _id);
+      expect(response.body._id).toEqual(_id)
+      console.log(_id + "tes")
     })
-    describe('GET', () => {
+    it('should return all data otherwise ', async () => {
+      const response = await request.get("/api/user");
+      try {
+        expect(response.body).toEqual({message: "empty records"})
 
-      it('should return data by id', async () => {
-        const response = await request.get("/api/user/" + _id);
-        expect(response.body._id).toEqual(_id)
-        console.log(_id + "tes")
-      })
-      it('should return all data ', async () => {
-        const response = await request.get("/api/user");
+      }
+      catch {
         expect(response.status).toBe(200)
-      });
-    })
+      }
+    });
 
-    describe('DELETE', () => {
-      it('should  delete data by id', async () => {
-        const response = await request.delete("/api/user/" + _id);
-        expect(response.body).toEqual({"message": "user was deleted successfully!"})
-      })
-      it('should fail due to id not found', async () => {
-        const response = await request.delete("/api/user/" + _id);
-        expect(response.body).toEqual({"message": "Cannot delete user with id=" + " " + _id + ". Maybe Transaction was not found!"})
-      })
+  })
+
+  describe('DELETE', () => {
+    it('should  delete data by id', async () => {
+      const response = await request.delete("/api/user/" + _id);
+      expect(response.body).toEqual({"message": "user was deleted successfully!"})
+    })
+    it('should fail due to id not found', async () => {
+      const response = await request.delete("/api/user/" + _id);
+      expect(response.body).toEqual({"message": "Cannot delete user with id=" + " " + _id + ". Maybe Transaction was not found!"})
     })
   })
+
 })
 
 
